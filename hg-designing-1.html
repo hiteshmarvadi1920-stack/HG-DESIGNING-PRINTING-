@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HG Designing & Printing – Vadodara</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0B0B0F;
+  --paper: #F5F2EC;
+  --accent: #E8341A;
+  --gold: #D4A017;
+  --muted: #6B6560;
+  --light: #FAFAF7;
+  --border: rgba(11,11,15,0.1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: none;
+  overflow-x: hidden;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transition: all 0.25s ease;
+  mix-blend-mode: multiply;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 6%;
+  background: rgba(245,242,236,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+  color: var(--ink);
+  line-height: 1;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--accent); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: 140px 6% 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: 'HG';
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32vw;
+  color: rgba(11,11,15,0.04);
+  position: absolute;
+  right: -2vw; top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.7s ease both;
+}
+.eyebrow-line { width: 40px; height: 2px; background: var(--accent); }
+.eyebrow-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 7vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero h1 .outline {
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+}
+.hero h1 .red { color: var(--accent); }
+.hero-desc {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 400px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+.btn-fill {
+  background: var(--accent); color: white;
+  padding: 14px 32px; border-radius: 4px;
+  font-weight: 600; font-size: 0.95rem;
+  text-decoration: none; letter-spacing: 0.5px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+.btn-fill:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(232,52,26,0.3); }
+.btn-ghost {
+  background: transparent; color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 13px 30px; border-radius: 4px;
+  font-weight: 600; font-size: 0.95rem;
+  text-decoration: none; letter-spacing: 0.5px;
+  transition: 0.2s;
+  display: inline-block;
+}
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+.hero-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.service-tile {
+  background: white;
+  border-radius: 12px;
+  padding: 28px 22px;
+  border: 1px solid var(--border);
+  transition: transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.service-tile::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 3px; width: 0;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+.service-tile:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+.service-tile:hover::after { width: 100%; }
+.tile-icon { font-size: 2.2rem; margin-bottom: 14px; }
+.tile-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.tile-desc { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+.tile-big {
+  grid-column: span 2;
+  background: var(--ink);
+  color: white;
+  display: flex; align-items: center; gap: 20px;
+}
+.tile-big .tile-name { color: white; font-size: 1.1rem; }
+.tile-big .tile-desc { color: rgba(255,255,255,0.6); }
+.tile-big .tile-icon { font-size: 3rem; }
+
+/* TICKER */
+.ticker {
+  background: var(--accent);
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 25s linear infinite;
+}
+.ticker-item {
+  display: inline-block;
+  color: white;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  padding: 0 40px;
+}
+.ticker-dot { color: rgba(255,255,255,0.5); }
+
+/* STATS */
+.stats-bar {
+  background: var(--ink);
+  padding: 50px 6%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+.stat-item { padding: 20px; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  color: var(--accent);
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* PORTFOLIO */
+#portfolio { padding: 100px 6%; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 50px; flex-wrap: wrap; gap: 20px; }
+.section-label {
+  font-size: 0.75rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent);
+  font-weight: 600; margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tab {
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  background: transparent;
+  color: var(--muted);
+}
+.tab.active, .tab:hover { background: var(--ink); color: white; border-color: var(--ink); }
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.port-card {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
+  background: var(--light);
+  border: 1px solid var(--border);
+  transition: transform 0.25s;
+}
+.port-card:hover { transform: scale(1.02); }
+.port-card:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+.port-visual {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+  background: linear-gradient(135deg, #f0ede6, #e8e2d8);
+  position: relative;
+  overflow: hidden;
+}
+.port-visual::before {
+  content: attr(data-label);
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8rem;
+  opacity: 0.06;
+  letter-spacing: 5px;
+  color: var(--ink);
+}
+.port-overlay {
+  position: absolute; inset: 0;
+  background: rgba(11,11,15,0.85);
+  display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: flex-end;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.port-card:hover .port-overlay { opacity: 1; }
+.port-tag {
+  background: var(--accent);
+  color: white; font-size: 0.72rem;
+  padding: 3px 12px; border-radius: 20px;
+  font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.port-name { font-family: 'Syne', sans-serif; font-weight: 700; color: white; font-size: 1.1rem; }
+
+/* SERVICES SECTION */
+#services { padding: 100px 6%; background: var(--ink); }
+#services .section-label { color: var(--gold); }
+#services .section-title { color: white; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  margin-top: 50px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.svc-card {
+  padding: 40px 32px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.25s;
+  position: relative;
+}
+.svc-card:hover { background: rgba(232,52,26,0.12); }
+.svc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  color: rgba(255,255,255,0.08);
+  line-height: 1;
+  margin-bottom: -10px;
+}
+.svc-icon { font-size: 2rem; margin-bottom: 16px; }
+.svc-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 1.1rem;
+  color: white; margin-bottom: 10px;
+}
+.svc-desc { color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.65; margin-bottom: 20px; }
+.svc-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+/* ORDER / CONTACT */
+#order { padding: 100px 6%; }
+.order-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: start;
+}
+.order-left h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.order-left p { color: var(--muted); line-height: 1.75; margin-bottom: 36px; }
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex; gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.step-num {
+  width: 36px; height: 36px;
+  background: var(--accent); color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-text strong { display: block; font-weight: 600; margin-bottom: 4px; }
+.step-text span { color: var(--muted); font-size: 0.88rem; }
+
+.order-form {
+  background: white;
+  border-radius: 16px;
+  padding: 44px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+}
+.form-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1.4rem;
+  margin-bottom: 28px; color: var(--ink);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fg { margin-bottom: 18px; }
+.fg label {
+  display: block;
+  font-size: 0.82rem; font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 7px;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+.fg input, .fg select, .fg textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #e2ddd8;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--light);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232,52,26,0.1);
+}
+.fg textarea { resize: vertical; height: 100px; }
+.upload-box {
+  border: 2px dashed #d5cfc8;
+  border-radius: 8px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  background: var(--light);
+}
+.upload-box:hover { border-color: var(--accent); background: rgba(232,52,26,0.03); }
+.upload-icon { font-size: 2rem; margin-bottom: 8px; }
+.upload-text { font-size: 0.88rem; color: var(--muted); }
+.upload-text strong { color: var(--accent); }
+.submit-btn {
+  width: 100%;
+  background: var(--accent); color: white;
+  border: none; padding: 16px;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 8px;
+}
+.submit-btn:hover { background: #c4290f; transform: translateY(-2px); }
+
+/* WHATSAPP */
+.wa-section {
+  background: var(--paper);
+  padding: 60px 6%;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.wa-btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: #25D366; color: white;
+  padding: 18px 44px; border-radius: 60px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 1.1rem;
+  text-decoration: none;
+  transition: 0.2s;
+  box-shadow: 0 12px 40px rgba(37,211,102,0.3);
+}
+.wa-btn:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(37,211,102,0.4); }
+.wa-icon { font-size: 1.8rem; }
+.wa-label { font-size: 0.8rem; opacity: 0.8; margin-top: 12px; }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.5);
+  padding: 40px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.foot-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  letter-spacing: 3px;
+}
+.foot-logo span { color: var(--accent); }
+.foot-info { font-size: 0.85rem; line-height: 1.8; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+  background: var(--ink); color: white;
+  padding: 14px 28px; border-radius: 8px;
+  font-weight: 600; font-size: 0.9rem;
+  z-index: 999; transition: 0.35s;
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(24px); }
+  to { opacity:1; transform: translateY(0); }
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 110px; }
+  .hero::before { display: none; }
+  .hero-right { grid-template-columns: 1fr 1fr; }
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
+  .portfolio-grid { grid-template-columns: 1fr 1fr; }
+  .port-card:first-child { grid-column: span 2; }
+  .order-layout { grid-template-columns: 1fr; gap: 40px; }
+  .nav-links { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .port-card:first-child { grid-column: span 1; }
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HG<span>.</span>Designing</div>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#order">Contact</a></li>
+  </ul>
+  <a href="#order" class="nav-cta">Get Quote →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Vadodara, Gujarat · Est. 2024</span>
+    </div>
+    <h1>
+      Creative<br>
+      <span class="outline">Design</span><br>
+      <span class="red">& Print</span>
+    </h1>
+    <p class="hero-desc">
+      Logo, poster, visiting card, banner — har cheez professionally banate hain.<br>
+      Aapka reference do, hum banate hain — CorelDraw quality guaranteed.
+    </p>
+    <div class="hero-btns">
+      <a href="#order" class="btn-fill">Order Karein →</a>
+      <a href="#portfolio" class="btn-ghost">Portfolio Dekhein</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="service-tile">
+      <div class="tile-icon">🎨</div>
+      <div class="tile-name">Logo Design</div>
+      <div class="tile-desc">Brand identity jo yaad rahe</div>
+    </div>
+    <div class="service-tile">
+      <div class="tile-icon">🖨️</div>
+      <div class="tile-name">Printing</div>
+      <div class="tile-desc">High quality offset & digital</div>
+    </div>
+    <div class="service-tile">
+      <div class="tile-icon">📇</div>
+      <div class="tile-name">Visiting Card</div>
+      <div class="tile-desc">Professional first impression</div>
+    </div>
+    <div class="service-tile">
+      <div class="tile-icon">🪧</div>
+      <div class="tile-name">Banner / Flex</div>
+      <div class="tile-desc">Eye-catching outdoor design</div>
+    </div>
+    <div class="service-tile tile-big">
+      <div class="tile-icon">⚡</div>
+      <div>
+        <div class="tile-name">Fast Delivery · CorelDraw Files Available</div>
+        <div class="tile-desc">Print-ready files (.cdr, .pdf, .jpg) — aapki zaroorat ke hisaab se</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">LOGO DESIGN <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">VISITING CARD <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">POSTER DESIGN <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">FLEX BANNER <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">BROCHURE <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">INVITATION CARD <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PACKAGING DESIGN <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">CORELDRAW FILES <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">LOGO DESIGN <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">VISITING CARD <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">POSTER DESIGN <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">FLEX BANNER <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">BROCHURE <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">INVITATION CARD <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PACKAGING DESIGN <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">CORELDRAW FILES <span class="ticker-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">500+</span>
+    <div class="stat-label">Projects Completed</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">300+</span>
+    <div class="stat-label">Happy Clients</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">10+</span>
+    <div class="stat-label">Design Services</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">24H</span>
+    <div class="stat-label">Fast Turnaround</div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-head">
+    <div>
+      <div class="section-label">Our Work</div>
+      <div class="section-title">PORTFOLIO</div>
+    </div>
+    <div class="filter-tabs">
+      <button class="tab active">All</button>
+      <button class="tab">Logo</button>
+      <button class="tab">Poster</button>
+      <button class="tab">Card</button>
+      <button class="tab">Banner</button>
+    </div>
+  </div>
+  <div class="portfolio-grid">
+    <div class="port-card">
+      <div class="port-visual" data-label="LOGO">🏢</div>
+      <div class="port-overlay">
+        <div class="port-tag">Logo Design</div>
+        <div class="port-name">Restaurant Brand Identity</div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-visual" data-label="CARD">📇</div>
+      <div class="port-overlay">
+        <div class="port-tag">Visiting Card</div>
+        <div class="port-name">Corporate Business Card</div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-visual" data-label="POSTER">🎭</div>
+      <div class="port-overlay">
+        <div class="port-tag">Poster</div>
+        <div class="port-name">Event Promotion Poster</div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-visual" data-label="BANNER">🪧</div>
+      <div class="port-overlay">
+        <div class="port-tag">Flex Banner</div>
+        <div class="port-name">Shop Opening Banner</div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-visual" data-label="INVITE">💌</div>
+      <div class="port-overlay">
+        <div class="port-tag">Invitation</div>
+        <div class="port-name">Wedding Card Design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What We Offer</div>
+  <div class="section-title" style="color:white">OUR SERVICES</div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">🎨</div>
+      <div class="svc-name">Logo Design</div>
+      <div class="svc-desc">Aapki brand ke liye unique aur memorable logo. Multiple concepts, unlimited revisions.</div>
+      <div class="svc-price">Starting ₹500</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">📇</div>
+      <div class="svc-name">Visiting Card</div>
+      <div class="svc-desc">Professional double-sided business card. Print-ready CorelDraw file included.</div>
+      <div class="svc-price">Starting ₹200</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">🪧</div>
+      <div class="svc-name">Banner / Flex</div>
+      <div class="svc-desc">Outdoor & indoor banners — high resolution, vibrant colors, any size.</div>
+      <div class="svc-price">Starting ₹300</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">📋</div>
+      <div class="svc-name">Poster / Pamphlet</div>
+      <div class="svc-desc">Event posters, product promotions, festival offers — eye-catching design.</div>
+      <div class="svc-price">Starting ₹250</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">💌</div>
+      <div class="svc-name">Invitation Card</div>
+      <div class="svc-desc">Wedding, birthday, corporate events — elegant & personalized invitations.</div>
+      <div class="svc-price">Starting ₹400</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">📦</div>
+      <div class="svc-name">Packaging Design</div>
+      <div class="svc-desc">Product labels, boxes, pouches — design jo customer ko attract kare.</div>
+      <div class="svc-price">Starting ₹800</div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section id="order">
+  <div class="order-layout">
+    <div class="order-left">
+      <div class="section-label">Get Started</div>
+      <h2>ORDER KAISE KAREIN?</h2>
+      <p>Bahut simple hai! Bas yeh steps follow karein aur aapka design ready ho jayega.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Form fill karein</strong>
+            <span>Apna naam, contact, aur design type batayein</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Sample / Reference bhejein</strong>
+            <span>Koi purana design ya idea ka photo attach karein</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>Hum contact karenge</strong>
+            <span>WhatsApp ya call pe confirm karenge aur price batayenge</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <strong>Design ready!</strong>
+            <span>CorelDraw / PDF / JPG file — aapki zaroorat ke hisaab se deliver</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="order-form">
+      <div class="form-title">📋 Design Order Form</div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Aapka Naam *</label>
+          <input type="text" placeholder="Full name" id="oname">
+        </div>
+        <div class="fg">
+          <label>Phone / WhatsApp *</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX" id="ophone">
+        </div>
+      </div>
+      <div class="fg">
+        <label>Design Type *</label>
+        <select id="otype">
+          <option value="">-- Select kijiye --</option>
+          <option>🎨 Logo Design</option>
+          <option>📇 Visiting Card</option>
+          <option>🪧 Banner / Flex</option>
+          <option>📋 Poster / Pamphlet</option>
+          <option>💌 Invitation Card</option>
+          <option>📦 Packaging Design</option>
+          <option>📰 Brochure / Catalogue</option>
+          <option>🖼️ Social Media Post</option>
+          <option>🔤 Other</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Size / Quantity</label>
+        <input type="text" placeholder="Jaise: A4, 3.5x2 inch, 500 pieces..." id="osize">
+      </div>
+      <div class="fg">
+        <label>Reference / Sample Upload</label>
+        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+          <div class="upload-icon">📎</div>
+          <div class="upload-text">
+            <strong>Click to upload</strong> ya yahan drag karein<br>
+            JPG, PNG, PDF, CDR — max 10MB
+          </div>
+          <input type="file" id="fileInput" style="display:none" accept="image/*,.pdf,.cdr" onchange="fileSelected(this)">
+        </div>
+        <div id="fileName" style="font-size:0.82rem; color:var(--accent); margin-top:6px;"></div>
+      </div>
+      <div class="fg">
+        <label>Koi Aur Baat / Special Instructions</label>
+        <textarea placeholder="Color preference, text content, ya koi bhi zaruri info..." id="onote"></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitOrder()">🚀 Order Submit Karein</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHATSAPP -->
+<div class="wa-section">
+  <p style="color:var(--muted); margin-bottom:20px; font-size:0.95rem;">Ya seedha WhatsApp pe message karein — turat reply milega!</p>
+  <a href="https://wa.me/919876543210?text=Namaste!%20Mujhe%20design%20karwana%20hai." class="wa-btn" target="_blank">
+    <span class="wa-icon">💬</span>
+    WhatsApp Pe Order Karein
+  </a>
+  <div class="wa-label" style="color:var(--muted); margin-top:14px; font-size:0.82rem;">Usually responds within 1 hour · Mon–Sat 9am–9pm</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="foot-logo">HG<span>.</span>Designing</div>
+    <div style="font-size:0.82rem; margin-top:6px; color:rgba(255,255,255,0.3);">& Printing · Vadodara, Gujarat</div>
+  </div>
+  <div class="foot-info">
+    📍 Vadodara, Gujarat<br>
+    📞 +91 98765 43210<br>
+    💬 WhatsApp available
+  </div>
+  <div style="font-size:0.8rem;">© 2026 HG Designing & Printing<br>All rights reserved.</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX - 6 + 'px';
+  cursor.style.top = e.clientY - 6 + 'px';
+  ring.style.left = e.clientX - 18 + 'px';
+  ring.style.top = e.clientY - 18 + 'px';
+});
+
+// Filter tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// File selected
+function fileSelected(input) {
+  if (input.files[0]) {
+    document.getElementById('fileName').textContent = '✅ File selected: ' + input.files[0].name;
+  }
+}
+
+// Submit order
+function submitOrder() {
+  const name = document.getElementById('oname').value.trim();
+  const phone = document.getElementById('ophone').value.trim();
+  const type = document.getElementById('otype').value;
+  if (!name || !phone || !type) {
+    showToast('⚠️ Naam, phone aur design type zaruri hai!');
+    return;
+  }
+  showToast(`✅ Order submit ho gaya, ${name}! Hum jald contact karenge.`);
+  ['oname','ophone','otype','osize','onote'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fileName').textContent = '';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// Scroll animation
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.style.animation = 'fadeUp 0.6s ease both';
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.svc-card, .port-card, .step').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
